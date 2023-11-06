@@ -1,0 +1,9 @@
+.people-list{
+    width: 60vw;
+}
+.people-list__list{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around; 
+
+}
