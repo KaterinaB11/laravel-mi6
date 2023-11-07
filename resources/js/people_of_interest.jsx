@@ -4,7 +4,7 @@ import { createRoot } from 'react-dom/client';
 
 
  
-export default function ReactAppName() {
+export default function PeopleOfInterest() {
     return (
         <App/>
     );
@@ -12,4 +12,4 @@ export default function ReactAppName() {
  
 const container = document.getElementById('root');
 const root = createRoot(container);
-root.render(<ReactAppName />);
+root.render(<PeopleOfInterest />);
