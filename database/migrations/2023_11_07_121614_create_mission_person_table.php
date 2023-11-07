@@ -11,12 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('missions', function (Blueprint $table) {
-            $table->id();
-            $table->string('name')->nullable();
-            $table->year('year')->nullable();
-            $table->enum('outcome', ['success', 'failure']);
-            $table->timestamps();
+        Schema::create('mission_person', function (Blueprint $table) {
+            $table->foreignId('mission_id');
+            $table->foreignId('person_id');
         });
     }
 
@@ -25,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('missions');
+        Schema::dropIfExists('mission_person');
     }
 };
