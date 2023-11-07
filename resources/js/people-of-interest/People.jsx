@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import '../../css/people.scss';
 import PersonDetail from './PersonDetail';
+import StatusFilter from "./StatusFilter";
 
 export default function People() {
     const [people, setPeople] = useState([]);
@@ -8,9 +9,11 @@ export default function People() {
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 10; // Adjust the number of items per page as needed
 
+    const [selectedStatus, setSelectedStatus] = useState('');
+
     const fetchPeople = async () => {
         try {
-            const response = await fetch('api/people');
+            const response = await fetch('api/people' + (selectedStatus !== '' ? '?status=' + encodeURIComponent(selectedStatus) : ''));
             const data = await response.json();
             setPeople(data);
         } catch (error) {
@@ -20,7 +23,7 @@ export default function People() {
 
     useEffect(() => {
         fetchPeople();
-    }, []);
+    }, [selectedStatus]);
 
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = currentPage * itemsPerPage;
@@ -58,7 +61,9 @@ export default function People() {
             {!personId ? (
                 <>
                     <div className="people-list__top">
+                        <StatusFilter selectedStatus={selectedStatus} setSelectedStatus={setSelectedStatus}/>
                         <h3>People of interest</h3>
+                        
                     </div>
                     {displayedPeople.length > 0 ? (
                         <>

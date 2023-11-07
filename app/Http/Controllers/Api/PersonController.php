@@ -3,15 +3,22 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Person;
 use Illuminate\Http\Request;
+use App\Models\Person;
 
 class PersonController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $people = Person::with('aliases', 'image', 'status')
-        ->get();
+        $status_id = $request->input('status');
+
+        $people_query = Person::with('aliases', 'image', 'status');
+
+        if ($status_id) {
+            $people_query->where('status_id', $status_id);
+        }
+
+        $people = $people_query->get();
 
         return $people;
     }
@@ -19,7 +26,7 @@ class PersonController extends Controller
     public function show($person_id)
     {
         $person = Person::with('aliases', 'image', 'status')
-            ->find($person_id);
+            ->findOrFail($person_id);
 
         return $person;
     }
