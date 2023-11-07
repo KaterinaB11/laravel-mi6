@@ -7,7 +7,7 @@ export default function People() {
     const [people, setPeople] = useState([]);
     const [personId, setPersonId] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 10; // Adjust the number of items per page as needed
+    const itemsPerPage = 6; // Adjust the number of items per page as needed
 
     const [selectedStatus, setSelectedStatus] = useState('');
 

@@ -19,6 +19,7 @@ useEffect(() => {
 
 return (
     <div className="status-filter">
+        <h3>Choose the status</h3>
         {
             statuses.map(status => {
                 return <button

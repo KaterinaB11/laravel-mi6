@@ -6,12 +6,14 @@ import MainContent from "./people-of-interest/MainContent";
 
 export default function App () {
 
+  const [content, setContent] = useState('')
+
     return (
      
         <>
           <body>
-              <Navigation/>
-              <MainContent/>
+              <Navigation content={content} setContent={setContent}/>
+              <MainContent content={content}/>
           </body>
         </>
     )
