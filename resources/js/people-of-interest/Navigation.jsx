@@ -15,8 +15,8 @@ const toggleSidenav = () => {
                   <img src="/logos/mi6-seal.png" alt="seal" className="sidenav__image" />
                   <ul className="sidenav__links">
                     <li className="sidenav__link sidenav__link_active"><a href="/">Home</a></li>
-                    <li className="sidenav__link"><a href="/people">People of interest</a></li>
-                    <li className="sidenav__link"><a href="/missions">Missions</a></li>
+                    <li className="sidenav__link"><a href="#people">People of interest</a></li>
+                    <li className="sidenav__link"><a href="#missions">Missions</a></li>
                   </ul>
                 </div>
                 <span className="sidenav__arrow" onClick={toggleSidenav}></span>

@@ -1,76 +1,44 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
+import MissionEditForm from "./MissionEditForm";
 
 export default function Missions() {
-    const [missions, setMissions] = useState([]);
-    const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 10; // Adjust as needed
+    const [missions, setMissions] = useState([])
+    const [missionId, setMissionId] = useState(null)
 
-    const loadMissions = async () => {
-        const response = await axios.get("/api/missions");
-        const data = response.data;
-        setMissions(data);
-    };
+    const fetchMissions = async () => {
+        try {
+            const response = await axios('api/missions');
+            setMissions(response.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     useEffect(() => {
-        loadMissions();
-    }, []);
+        fetchMissions()
+    }, [])
 
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = currentPage * itemsPerPage;
-    const totalPages = Math.ceil(missions.length / itemsPerPage);
-
-    const previousPage = () => {
-        if (currentPage > 1) {
-            setCurrentPage(currentPage - 1);
-        }
-    };
-
-    const nextPage = () => {
-        if (currentPage < totalPages) {
-            setCurrentPage(currentPage + 1);
-        }
-    };
-
-    return (
-        <main>
-            <div className="main-container">
-                <h1>Your Missions</h1>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Year</th>
-                            <th>People</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {missions.slice(startIndex, endIndex).map((mission) => (
-                            <tr key={mission.id}>
-                                <td>{mission.name}</td>
-                                <td>{mission.year}</td>
-                                <td>
-                                    <ul>
-                                        {mission.people.map((person) => (
-                                            <li key={person.id}>{person.name}</li>
-                                        ))}
-                                    </ul>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-                <div className="pagination">
-                    <button onClick={previousPage} disabled={currentPage === 1}>
-                        Previous
-                    </button>
-                    <span>{`Page ${currentPage} of ${totalPages}`}</span>
-                    <button onClick={nextPage} disabled={currentPage === totalPages}>
-                        Next
-                    </button>
-                </div>
+    return <div className="missions-list">
+        {
+        !missionId ? <>
+            <div className="missions-list__top">
+                <h1>Missions</h1>
             </div>
-        </main>
-    );
+            {
+                missions.length > 0 ?
+                    <ol className="missions-list__list">
+                        {
+                            missions.map((mission) => {
+                                return <li key={mission.id} className="missions-list__mission" onClick={() => {setMissionId(mission.id)}}>
+                                    <p>{mission.name}</p>
+                                </li>
+                            }) 
+                        }
+                    </ol>
+                : 'Loading...'
+            }
+        </> : <MissionEditForm missionId={missionId} setMissionId={setMissionId}/>
+        }
+    </div>
 }
