@@ -4,8 +4,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-use DB;
 use App\Models\Status;
+use Illuminate\Support\Facades\DB;
 
 class StatusesSeeder extends Seeder
 {

@@ -24,7 +24,7 @@ class PeopleSeeder extends Seeder
         DB::table('aliases')->truncate();   // aliases
         DB::table('images')->truncate();    // images
 
-        $source_file = storage_path('storage/data.json'); // data.json
+        $source_file = storage_path('data.json'); // data.json
         if (!file_exists($source_file)) {
             die('Source file '.$source_file.' not found');
         }
